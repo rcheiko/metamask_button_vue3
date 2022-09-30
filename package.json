@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "dev": "vue-cli-service serve --port 8000",
+    "serve": "vue-cli-service serve --port 8000",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@vueuse/core": "^9.3.0",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },
