@@ -4,7 +4,7 @@
         <h2 v-else>Install Metamask Extension</h2>
         <h3 v-if="ready === false">{{errorMessage}}</h3>
     </div>
-    <div v-if="isLoggedIn">
+    <div v-if="isLoggedIn && networkMetamask">
         <p>We are connected : {{account}}</p>
         <button @click="disconnectWallet()">Disconnect</button>
     </div>
@@ -34,9 +34,7 @@ const { ready, start } = useTimeout(2500, { controls: true });
         account.value = (window as any).ethereum.selectedAddress;
     }
 
-    const chainId = await (window as any).ethereum.request({ method: 'eth_chainId' });
-
-    if (chainId === process.env.VUE_APP_CHAIN_ID) {
+    if (connectInfo.chainId === process.env.VUE_APP_CHAIN_ID) {
         networkMetamask.value = true;
     }
 });
@@ -49,9 +47,8 @@ const { ready, start } = useTimeout(2500, { controls: true });
         start();
         account.value = undefined;
     }
-    else {
-        account.value = (window as any).ethereum.selectedAddress;
-    }
+    else
+        account.value = user;
 });
 
 (window as any).ethereum.on('chainChanged', (chainId:string) => { // when you change the network
